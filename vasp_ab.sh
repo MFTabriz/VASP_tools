@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (c) 2018 M. Farzalipour Tabriz
-# Copyrights licensed under theGNU Lesser General Public License v3 (LGPL-3.0)
+# Copyrights licensed under the GNU Lesser General Public License v3 (LGPL-3.0)
 # See the accompanying LICENSE file for terms.
 
 filename=$1;
