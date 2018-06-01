@@ -5,7 +5,7 @@
 
 filename=$1;
 output=$2;
-#if there is going to  be more options, they go here!
+#if there is going to be more options, they should go here!
 while [[ $1 = -* ]]; do
 	arg=$1; shift           # shift the found arg away
 	case $arg in
@@ -13,7 +13,7 @@ while [[ $1 = -* ]]; do
 		echo "Usage: vasp_ab.sh [OUTCAR_file] [AB_file]";
 		echo "This script reads OUTCAR file of a spin polarized VASP calculation and writes energy levels and occupation numbers of each spin channel side by side to a text file.";
 		echo "Default: OUTCAR_file = \"OUTCAR.gz\" or \"OUTCAR\"";
-		echo "Default: AB_file = {OUTCAR_file}.AB"
+		echo "Default: AB_file = {OUTCAR_file}.AB";
 		exit 1
 		;;
 	esac
