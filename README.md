@@ -1,4 +1,4 @@
-# VASP_postprocess
+# VASP Postprocess tools
 A collection of scripts for post-processing the [VASP](https://www.vasp.at) (The Vienna Ab initio simulation package) results
 
 ## vasp_ab.sh
