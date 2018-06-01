@@ -3,8 +3,6 @@
 # Copyrights licensed under the GNU Lesser General Public License v3 (LGPL-3.0)
 # See the accompanying LICENSE file for terms.
 
-filename=$1;
-output=$2;
 #if there is going to be more options, they should go here!
 while [[ $1 = -* ]]; do
 	arg=$1; shift           # shift the found arg away
@@ -19,36 +17,40 @@ while [[ $1 = -* ]]; do
 	esac
 done
 
-#if filename is not provided
-if [ -z "$filename" ]; then
+input_file=$1;
+output_file=$2;
+
+
+#if input_file is not provided
+if [ -z "$input_file" ]; then
 	if [ -f OUTCAR.gz ]; then
-		filename="OUTCAR.gz";
+		input_file="OUTCAR.gz";
 	elif [ -f OUTCAR ]; then
-		filename="OUTCAR";
+		input_file="OUTCAR";
 	fi
 fi
 
 #if output is not provided
-if [ -z "$output" ]; then
-	output=${filename%.gz}.AB;
+if [ -z "$output_file" ]; then
+	output_file=${input_file%.gz}.AB;
+fi
+
+if [[ $input_file == *".gz" ]]; then
+	catcher="zgrep"
+	streamer="gunzip -c"
+else
+	catcher="grep"
+	streamer="less"
 fi
 
 
-if [ -f "$filename" ]; then
-	if [[ $filename == *".gz" ]]; then
-		s1=$(zgrep -n "spin component 1" $filename| tail -1|cut -d':' -f1);
-		s2=$(zgrep -n "spin component 2" $filename| tail -1|cut -d':' -f1);
-		end=$(($s2*2-$s1));
-		len=$(($s2-$s1));
-		paste <(gunzip -c $filename | head -n $(($s2-1)) | tail -n $len;) <(gunzip -c $filename | head -n $end | tail -n $(($len+1));) > "$output"
-	else
-		s1=$(grep -n "spin component 1" $filename| tail -1|cut -d':' -f1);
-		s2=$(grep -n "spin component 2" $filename| tail -1|cut -d':' -f1);
-		end=$(($s2*2-$s1));
-		len=$(($s2-$s1));
-		paste <(less $filename | head -n $(($s2-1)) | tail -n $len;) <(less $filename | head -n $end | tail -n $(($len+1));) > "$output"
-	fi
+if [ -f "$input_file" ]; then
+	s1=$($catcher -n "spin component 1" $input_file| tail -1|cut -d':' -f1);
+	s2=$($catcher -n "spin component 2" $input_file| tail -1|cut -d':' -f1);
+	end=$(($s2*2-$s1));
+	len=$(($s2-$s1));
+	paste <($streamer $input_file | head -n $(($s2-1)) | tail -n $len;) <($streamer $input_file | head -n $end | tail -n $(($len+1));) > "$output_file"
 else
-	echo "Requested OUTCAR file ($filename) could not be found!";
+	echo "Requested OUTCAR file ($input_file) could not be found!";
 fi
  
