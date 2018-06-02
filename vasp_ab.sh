@@ -8,10 +8,10 @@ while [[ $1 = -* ]]; do
 	arg=$1; shift           # shift the found arg away
 	case $arg in
 		--help)
-		echo "Usage: vasp_ab.sh [OUTCAR_file] [AB_file]";
-		echo "This script reads OUTCAR file of a spin polarized VASP calculation and writes energy levels and occupation numbers of each spin channel side by side to a text file.";
-		echo "Default: OUTCAR_file = \"OUTCAR.gz\" or \"OUTCAR\"";
-		echo "Default: AB_file = {OUTCAR_file}.AB";
+		printf "Usage: vasp_ab.sh [OUTCAR_file] [AB_file]\n";
+		printf "This script reads the final Kohn-Sham eigenvalues, and Kohn-Sham orbitals' occupation of each spin channel from the OUTCAR file of a spin-polarized VASP calculation and writes them into a single text file side by side for all the k-points.\n\n";
+		printf "[OUTCAR_file] =	VASP OUTCAR file. Default: \"OUTCAR.gz\" or \"OUTCAR\"\n";
+		printf "[AB_file] = 	Output txt file. Default: {OUTCAR_file}.AB\n";
 		exit 1
 		;;
 	esac
