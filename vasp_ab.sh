@@ -45,11 +45,12 @@ fi
 
 
 if [ -f "$input_file" ]; then
-	s1=$($catcher -n "spin component 1" $input_file| tail -1|cut -d':' -f1);
-	s2=$($catcher -n "spin component 2" $input_file| tail -1|cut -d':' -f1);
-	end=$(($s2*2-$s1));
-	len=$(($s2-$s1));
-	paste <($streamer $input_file | head -n $(($s2-1)) | tail -n $len;) <($streamer $input_file | head -n $end | tail -n $(($len+1));) > "$output_file"
+	#find the line number for the last instance of the "spin component x" in $input_file
+	spin1_line=$($catcher -n "spin component 1" $input_file| tail -1|cut -d':' -f1);
+	spin2_line=$($catcher -n "spin component 2" $input_file| tail -1|cut -d':' -f1);
+	last_data_line=$(($spin2_line*2-$spin1_line));
+	data_length=$(($spin2_line-$spin1_line));
+	paste <($streamer $input_file | head -n $(($spin2_line-1)) | tail -n $data_length;) <($streamer $input_file | head -n $last_data_line | tail -n $(($data_length+1));) > "$output_file"
 else
 	echo "Requested OUTCAR file ($input_file) could not be found!";
 fi
