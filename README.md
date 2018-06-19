@@ -16,3 +16,17 @@ Reads the data from the “OUTCAR.gz” or “OUTCAR” file and writes the resu
 $ ./vasp_ab.sh vaspfile abfile
 ```
 Reads the data from the “vaspfile” and writes the results to the “abfile”
+
+### Dependencies
+* General:
+    * [head](https://en.wikipedia.org/wiki/Head_(Unix))
+    * [tail](https://en.wikipedia.org/wiki/Tail_(Unix))
+    * [cut](https://en.wikipedia.org/wiki/Cut_(Unix))
+    * [paste](https://en.wikipedia.org/wiki/Paste_(Unix))
+* For uncompressed files:
+    * [grep](https://en.wikipedia.org/wiki/Grep)
+    * [less](https://en.wikipedia.org/wiki/Less_(Unix))
+* For compressed files:
+    * [zgrep](https://linux.die.net/man/1/zgrep)
+    * [gunzip](https://linux.die.net/man/1/gunzip)
+
