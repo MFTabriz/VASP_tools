@@ -4,7 +4,7 @@ A collection of scripts for post-processing the [VASP](https://www.vasp.at) (The
 ## vasp_ab.sh
 This script reads the final Kohn-Sham eigenvalues, and Kohn-Sham orbitals' occupation of each spin channel from the OUTCAR file of a spin-polarized VASP calculation and writes them into a single text file side by side for all the k-points.
 
-**Note**: The script overwrites any existing output file!
+**Note**: The script overwrites any former existing output file!
 
 ### Examples
 ```shell
